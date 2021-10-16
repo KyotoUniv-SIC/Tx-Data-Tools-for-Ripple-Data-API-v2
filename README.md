@@ -36,13 +36,19 @@ http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20170701002442|0
 
 ### 2018
 
-- first half
+- q1-1
 
 http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20180101000441|000035470541|00015
 
+- q2
+
 http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20180401000002|000037633922|00042
 
+- q3
+
 http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20180701012850|000039760632|00000
+
+- q4
 
 http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20181001001632|000041906097|00002
 
