@@ -50,6 +50,8 @@ while len(headerLink) == 2:
         # 半期の場合は20xx07、20x(x+1)
         # Quaterの場合は20xx04、20xx07、20xx10,20x(x+1)
         if "marker=2015" in r.headers["Link"]:
+            print("nextUrl")
+            print(nextUrl)
             print("CCCCCCCCCCCCCCCCC")
             tempDf = pd.concat(listDf)
             resultDf = pd.concat([resultDf, tempDf])
@@ -60,8 +62,6 @@ while len(headerLink) == 2:
             # result20xxq1, result20xxq2, result20xxq3, result20xxq4
             resultDf.to_csv("./result2013.csv", index=False)
             print("complete save csv")
-            print("nextUrl")
-            print(nextUrl)
             break
     else:
         print("unexpected http error")
