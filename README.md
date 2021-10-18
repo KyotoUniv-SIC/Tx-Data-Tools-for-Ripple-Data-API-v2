@@ -1,4 +1,4 @@
-# XRP-Txs-Get-tool
+# XRP Txs Get Tool
 
 ## Usage
 
