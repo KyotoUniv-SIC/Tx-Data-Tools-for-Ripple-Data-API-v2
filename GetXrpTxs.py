@@ -18,6 +18,8 @@ nextUrl = headerLink[0].replace("<", "").replace(">", "")
 # nextUrl = ""
 
 resultDf = pd.DataFrame(columns=df.columns)
+
+# nextUrlを指定する場合コメントアウトする
 resultDf = pd.concat([resultDf, df])
 
 listDf = []
@@ -36,10 +38,9 @@ while len(headerLink) == 2:
         continue
     elif r.status_code == 200:
         nextdf = pd.read_csv(io.BytesIO(r.content), sep=",")
-        print("AAAAAAAAAAAAAAA")
+        print("GET!")
         ##resultDf = pd.concat([resultDf, nextdf])
         listDf.append(nextdf)
-        print("BBBBBBBBBBBBBBBBBB")
 
         headerLink = r.headers["Link"].split(";")
         nextUrl = headerLink[0].replace("<", "").replace(">", "")
@@ -52,7 +53,7 @@ while len(headerLink) == 2:
         if "marker=2015" in r.headers["Link"]:
             print("nextUrl")
             print(nextUrl)
-            print("CCCCCCCCCCCCCCCCC")
+            print("")
             tempDf = pd.concat(listDf)
             resultDf = pd.concat([resultDf, tempDf])
             print(len(resultDf))
