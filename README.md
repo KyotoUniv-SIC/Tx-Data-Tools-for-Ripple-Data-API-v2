@@ -100,7 +100,13 @@ http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20191101000051|0
 
 ### 2020
 
+- q1
+
 http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20200101000341|000052431126|00009
+
+- q2
+
+http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20200401001631|000054482723|00024
 
 <br>
 
