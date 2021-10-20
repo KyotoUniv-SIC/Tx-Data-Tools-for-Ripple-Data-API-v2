@@ -53,7 +53,7 @@ while len(headerLink) == 2:
         if "marker=2015" in r.headers["Link"]:
             print("nextUrl")
             print(nextUrl)
-            print("")
+            print("Stop and make file")
             tempDf = pd.concat(listDf)
             resultDf = pd.concat([resultDf, tempDf])
             print(len(resultDf))
@@ -61,7 +61,7 @@ while len(headerLink) == 2:
             # result20xx
             # result20xxfirst, result20xxsecond
             # result20xxq1, result20xxq2, result20xxq3, result20xxq4
-            resultDf.to_csv("./result2013.csv", index=False)
+            resultDf.to_csv("./result.csv", index=False)
             print("complete save csv")
             break
     else:
