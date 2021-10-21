@@ -4,7 +4,7 @@
 
 `python getXrpTxsYear.py`
 
-## known nextURL and Download
+## known nextURL tand Download
 
 ## 2013
 
