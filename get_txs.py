@@ -33,6 +33,7 @@ while len(headerLink) == 2:
         continue
 
     if r.status_code == 429:
+        print("429 Too Many Requests")
         print(r.headers)
         time.sleep(11)
         continue
@@ -41,32 +42,33 @@ while len(headerLink) == 2:
         print("GET!")
         ##resultDf = pd.concat([resultDf, nextdf])
         listDf.append(nextdf)
-
-        headerLink = r.headers["Link"].split(";")
-        nextUrl = headerLink[0].replace("<", "").replace(">", "")
-
-        print(headerLink)
-        # 区切りでbreakする
-        # 年次の場合は20x(x+1)
-        # 半期の場合は20xx07、20x(x+1)
-        # Quaterの場合は20xx04、20xx07、20xx10,20x(x+1)
-        if "marker=2015" in r.headers["Link"]:
-            print("nextUrl")
-            print(nextUrl)
-            print("Stop and make file")
-            tempDf = pd.concat(listDf)
-            resultDf = pd.concat([resultDf, tempDf])
-            print(len(resultDf))
-            # CSVに出力
-            # result20xx
-            # result20xxfirst, result20xxsecond
-            # result20xxq1, result20xxq2, result20xxq3, result20xxq4
-            resultDf.to_csv("./result.csv", index=False)
-            print("complete save csv")
+        if ";" in r.headers["Link"]:
+            headerLink = r.headers["Link"].split(";")
+            nextUrl = headerLink[0].replace("<", "").replace(">", "")
+            print(headerLink)
+            # 区切りでbreakする
+            # 年次の場合は20x(x+1)
+            # 半期の場合は20xx07、20x(x+1)
+            # Quaterの場合は20xx04、20xx07、20xx10,20x(x+1)
+            if "marker=20211021" in r.headers["Link"]:
+                print("nextUrl")
+                print(nextUrl)
+                break
+        else:
+            print("Reach the Latest Tx")
             break
     else:
-        print("unexpected http error")
+        print("Unexpected HTTP Error")
         time.sleep(20)
         break
 
 # %%
+print("Stop and Make File")
+tempDf = pd.concat(listDf)
+print(len(resultDf))
+# CSVに出力
+# result20xx
+# result20xxfirst, result20xxsecond
+# result20xxq1, result20xxq2, result20xxq3, result20xxq4
+resultDf.to_csv("./result2021q3.csv", index=False)
+print("CSV Saving is Complete!")
