@@ -22,7 +22,7 @@ resultDf = pd.DataFrame(columns=df.columns)
 # nextUrlを指定する場合コメントアウトする
 resultDf = pd.concat([resultDf, df])
 
-listDf = []
+# listDf = []
 
 while len(headerLink) == 2:
     try:
@@ -40,8 +40,8 @@ while len(headerLink) == 2:
     elif r.status_code == 200:
         nextdf = pd.read_csv(io.BytesIO(r.content), sep=",")
         print("GET!")
-        ##resultDf = pd.concat([resultDf, nextdf])
-        listDf.append(nextdf)
+        resultDf = pd.concat([resultDf, nextdf])
+        # listDf.append(nextdf)
         if ";" in r.headers["Link"]:
             headerLink = r.headers["Link"].split(";")
             nextUrl = headerLink[0].replace("<", "").replace(">", "")
@@ -64,7 +64,7 @@ while len(headerLink) == 2:
 
 # %%
 print("Stop and Make File")
-tempDf = pd.concat(listDf)
+# tempDf = pd.concat(listDf)
 print(len(resultDf))
 # CSVに出力
 # result20xx
