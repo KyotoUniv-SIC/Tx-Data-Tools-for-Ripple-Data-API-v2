@@ -15,14 +15,18 @@ df = pd.read_csv(io.BytesIO(r.content), sep=",")
 headerLink = r.headers["Link"].split(";")
 nextUrl = headerLink[0].replace("<", "").replace(">", "")
 # 開始地点を入力,　最初の場合はコメントアウト
-# nextUrl = ""
+nextUrl = "http://data.ripple.com/v2/payments?limit=1000&format=csv&marker=20210701000600|000064635169|00104"
 
 resultDf = pd.DataFrame(columns=df.columns)
 
 # nextUrlを指定する場合コメントアウトする
-resultDf = pd.concat([resultDf, df])
+# resultDf = pd.concat([resultDf, df])
 
-listDf = []
+# CSVに出力
+# result20xx
+# result20xxfirst, result20xxsecond
+# result20xxq1, result20xxq2, result20xxq3, result20xxq4
+resultDf.to_csv("./result2021q3.csv", index=False)
 
 while len(headerLink) == 2:
     try:
@@ -38,19 +42,21 @@ while len(headerLink) == 2:
         time.sleep(11)
         continue
     elif r.status_code == 200:
-        nextdf = pd.read_csv(io.BytesIO(r.content), sep=",")
         print("GET!")
-        ##resultDf = pd.concat([resultDf, nextdf])
-        listDf.append(nextdf)
+        nextdf = pd.read_csv(io.BytesIO(r.content), sep=",")
+        print("Writing data...")
+        nextdf.to_csv("./result2021q3.csv", mode='a',
+                      header=False, index=False)
         if ";" in r.headers["Link"]:
             headerLink = r.headers["Link"].split(";")
             nextUrl = headerLink[0].replace("<", "").replace(">", "")
             print(headerLink)
+
             # 区切りでbreakする
             # 年次の場合は20x(x+1)
             # 半期の場合は20xx07、20x(x+1)
             # Quaterの場合は20xx04、20xx07、20xx10,20x(x+1)
-            if "marker=20211021" in r.headers["Link"]:
+            if "marker=202110" in r.headers["Link"]:
                 print("nextUrl")
                 print(nextUrl)
                 break
@@ -63,12 +69,4 @@ while len(headerLink) == 2:
         break
 
 # %%
-print("Stop and Make File")
-tempDf = pd.concat(listDf)
-print(len(resultDf))
-# CSVに出力
-# result20xx
-# result20xxfirst, result20xxsecond
-# result20xxq1, result20xxq2, result20xxq3, result20xxq4
-resultDf.to_csv("./result2021q3.csv", index=False)
-print("CSV Saving is Complete!")
+print("Complete!")
