@@ -53,11 +53,10 @@ while len(headerLink) == 2:
         print("Writing data...")
         nextdf.to_csv(file, mode='a',
                       header=False, index=False)
-        if ";" in r.headers["Link"]:
+        if "Link" in r.headers:
             headerLink = r.headers["Link"].split(";")
             nextUrl = headerLink[0].replace("<", "").replace(">", "")
             print(headerLink)
-
             if end in r.headers["Link"]:
                 print("nextUrl")
                 print(nextUrl)
