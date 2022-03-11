@@ -1,4 +1,4 @@
-# XRP Txs Get Tool
+# Tx Data Tools for Ripple Data API v2
 
 ## Usage
 
